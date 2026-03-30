@@ -99,3 +99,5 @@ public static class DataApiBuilderHostingExtension
         builder.WithOtlpExporter()
             .WithHttpHealthCheck("/health");
 }
+
+#pragma warning restore ASPIREATS001 // AspireExport is experimental
