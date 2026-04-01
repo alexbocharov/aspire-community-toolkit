@@ -1,3 +1,5 @@
+#pragma warning disable ASPIREATS001
+
 using Aspire.Hosting.ApplicationModel;
 using CommunityToolkit.Aspire.Utils;
 
@@ -16,6 +18,7 @@ public static partial class JavaAppHostingExtension
     /// <param name="image">The container image name.</param>
     /// <param name="imageTag">The container image tag.</param>
     /// <returns>A reference to the <see cref="IResourceBuilder{T}"/>.</returns>
+    [AspireExport("addJavaContainerApp", Description = "Adds a containerized Java application resource")]
     public static IResourceBuilder<JavaAppContainerResource> AddJavaContainerApp(this IDistributedApplicationBuilder builder, [ResourceName] string name,
         string image, string? imageTag = null)
     {
@@ -27,6 +30,7 @@ public static partial class JavaAppHostingExtension
 
         return builder.AddResource(resource)
                       .WithImage(image, imageTag)
+                      .WithIconName("DrinkCoffee")
                       .WithOtlpExporter();
     }
 
@@ -49,6 +53,7 @@ public static partial class JavaAppHostingExtension
 
         var rb = builder.AddResource(resource)
           .WithAnnotation(new ContainerImageAnnotation { Image = options.ContainerImageName, Tag = options.ContainerImageTag, Registry = options.ContainerRegistry })
+          .WithIconName("DrinkCoffee")
           .WithHttpEndpoint(port: options.Port, targetPort: options.TargetPort, name: JavaAppContainerResource.HttpEndpointName)
           .WithJavaDefaults(options);
 
@@ -79,3 +84,5 @@ public static partial class JavaAppHostingExtension
                .WithEnvironment("JAVA_TOOL_OPTIONS", $"-javaagent:{options.OtelAgentPath?.TrimEnd('/')}/opentelemetry-javaagent.jar");
 #pragma warning restore CS0618
 }
+
+#pragma warning restore ASPIREATS001
