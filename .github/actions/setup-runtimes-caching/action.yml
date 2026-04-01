@@ -68,6 +68,11 @@ runs:
       with:
         deno-version: v2.5.4
 
+    - uses: pnpm/action-setup@v5
+      name: Setup pnpm
+      with:
+        version: 10
+
     - uses: oven-sh/setup-bun@v2
       name: Setup Bun
       with:
